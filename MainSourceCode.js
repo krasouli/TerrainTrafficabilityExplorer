@@ -5,16 +5,11 @@
 //   - RCI: psi
 //   - Gravimetric Soil Moisture: fraction (kg/kg)
 //   - SnowDepth: meters
-//   - SnowSinkage: meters (computed from Sturm et al., 2010 densification model)
+//   - SnowSinkage: meters (computed from Sturm et al., 2010;2021 densification model)
 //   - SoilTemp1_C: Celsius (converted from Kelvin)
 //
-// IMPORTANT: All continuous layers are rendered using a DISCRETE
-// CLASSIFICATION (classifyToBins), not a continuous linear min/max stretch.
-// This guarantees the map colors match the legend bins exactly, since a
-// continuous stretch spaces palette colors evenly across [min, max], which
-// visually distorts non-uniform custom bins (e.g., RCI's edges span
-// 0-1-10-20-30-50-200-300-500-1000-max, extremely unevenly spaced).
 // ============================================================================
+function buildMainApp() {
 var map = ui.Map();
 map.setCenter(-110, 40, 6);
 map.setOptions('SATELLITE');
@@ -36,6 +31,7 @@ var SOILT_BASE_PATH = 'projects/rci-nwus/assets/WLDAS_SoilTemp1_DOY_';
 
 var DISPLAY_REGION = ee.Geometry.Rectangle([-125, 25, -103, 50], null, false);
 var DISPLAY_SCALE = 1113;
+
 
 // ============================================================================
 // Anchor palettes, each expanded to exactly 10 colors to match the 10 bins
@@ -115,12 +111,12 @@ function classifyToBins(image, bandName, edges) {
 }
 
 // ============================================================================
-// Snow Sinkage (Sturm et al., 2010, J. Hydrometeorology)
+// Snow Sinkage (Sturm et al., 2010; 2021, J. Hydrometeorology)
 // ============================================================================
 //
 // Model:
 //   rho_h(DOY) = (rho_max - rho_0) * [1 - exp(-k1*SnowDepth_cm - k2*DOY)] + rho_0
-//   Snow Sinkage (m) = SnowDepth_m * [1 - (rho_0 / rho_f)]
+//   Snow Sinkage (m) = SnowDepth_m * [1 - (rho_h(DOY) / rho_f)]
 //   rho_f = min(0.917, 0.519 + 0.0023*P) * 1000   (kg/m3), P = ground pressure (kPa)
 //
 // DOY convention (Sturm et al., 2010): snow-season day count restarts at
@@ -1109,3 +1105,61 @@ print('Go/No-Go rule is fully customizable: toggle Soil Temperature, Snow');
 print('Depth, Snow Sinkage, and RCI conditions on/off, set their thresholds,');
 print('and combine active conditions with AND or OR logic in the left panel.');
 print('========================================');
+}
+
+
+// ---------------------------------------------------------------------
+// 2. Build login UI
+// ---------------------------------------------------------------------
+var messageLabel = ui.Label('', {color: 'red', margin: '8px 0 0 0'});
+
+var passwordBox = ui.Textbox({
+  placeholder: 'Enter password',
+  style: {width: '220px'}
+});
+
+// Optional: press Enter to log in
+passwordBox.onChange(function(value) {
+  // onChange fires when Enter is pressed or focus changes
+});
+
+var loginButton = ui.Button({
+  label: 'Login',
+  onClick: function() {
+    if (passwordBox.getValue() === 'frozensoil2026') {
+      buildMainApp();
+    } else {
+      passwordBox.setValue('');
+      messageLabel.setValue('Incorrect password');
+    }
+  }
+});
+
+var loginPanel = ui.Panel({
+  widgets: [
+    ui.Label('Protected App', {
+      fontWeight: 'bold',
+      fontSize: '18px',
+      margin: '0 0 8px 0'
+    }),
+    ui.Label('Enter the password to continue.', {
+      margin: '0 0 8px 0'
+    }),
+    passwordBox,
+    loginButton,
+    messageLabel
+  ],
+  layout: ui.Panel.Layout.flow('vertical'),
+  style: {
+    width: '300px',
+    padding: '20px',
+    position: 'top-center'
+  }
+});
+
+// ---------------------------------------------------------------------
+// 3. Show login FIRST, not main app
+// ---------------------------------------------------------------------
+ui.root.clear();
+ui.root.setLayout(ui.Panel.Layout.absolute());
+ui.root.add(loginPanel);
