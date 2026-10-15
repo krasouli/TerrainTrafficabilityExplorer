@@ -73,29 +73,31 @@ The application is based on four primary data streams: (1) soil texture classes 
 WLDAS soil moisture data are available as climatological GeoTIFFs for four depth ranges and daily time steps over a climatological year (DOY 1–366). Spatial resolution is 0.01° (~1 km), matching the WLDAS Noah-MP grid, and temporal resolution is daily, allowing the construction of annual cycles of depth-integrated soil moisture and RCI.
 
 Table 1.	Key soil classes used in the WLDAS dataset and associated RCI equation for each soil texture. $θ_g$ denotes gravimetric soil moisture content in kg/kg or percent.
-|Soil Class	| Soil Texture (USDA)	|Soil Texture (USCS)	| RCI Equation (Sullivan et al. 1997)	| Bulk Density (g/cm3) |
+|Soil Class	| Soil Texture (USDA)	|Soil Texture (USCS)	| RCI Equation (Sullivan et al. 1997)	| Bulk Density ($g/cm^3$) |
 | :--- | :---: | :---: | :---: | ---: |
-|1	|SAND	            |SP—few different particle sizes, little or no fines	| $RCI = exp [3.987 + 0.815 ln(θ_g)]$	| 1.75 |
-|2	|LOAMY SAND	      |SM—Silty gravels, gravel–sand–silt mixtures	        | $RCI = exp [12.542-2.955 ln(θ_g)]$	| 1.75 |
-|3	|SANDY LOAM	      |SM—Silty gravels, gravel–sand–silt mixtures	        | $RCI = exp [12.542-2.955 ln(θ_g)]$	| 1.7  |
-|4	|SILT LOAM	      |ML—Inorganic silts, slight to no plasticity	        | $RCI = exp [11.936-2.407 ln(θ_g)]$	| 1.45 |
-|5	|SILT	            |ML—Inorganic silts, slight to no plasticity	        | $RCI = exp [11.936-2.407 ln(θ_g)]$	| 1.42 |
-|6	|LOAM	            |CL—Inorganic clays, low to mod. plasticity	          | $RCI = exp [15.506-3.530 ln(θ_g)]$	| 1.55 |
-|7	|SANDY CLAY LOAM  |SC—Clayey gravels, gravel–sand–clay mixtures	        | $RCI = exp [12.542-2.955 ln(θ_g)]$	| 1.65 |
-|8	|SILTY CLAY LOAM	|CL—Inorganic clays, low to mod. plasticity	          | $RCI = exp [15.506-3.530 ln(θ_g)]$	| 1.42 |
-|9	|CLAY LOAM	      |CL—Inorganic clays, low to mod. plasticity	          | $RCI = exp [15.506-3.530 ln(θ_g)]$	| 1.5  |
-|10	|SANDY CLAY	      |SC—Clayey gravels, gravel–sand–clay mixtures	        | $RCI = exp [12.542-2.955 ln(θ_g)]$	| 1.6  |
-|11	|SILTY CLAY	      |CH—Inorganic clays, high plasticity, fat clays	      | $RCI = exp [13.686-2.705 ln(θ_g)]$	| 1.4  |
-|12	|CLAY	            |CH—Inorganic clays, high plasticity, fat clays	      | $RCI = exp [13.686-2.705 ln(θ_g)]$	| 1.4  |
-|13	|ORGANIC MATERIAL	|OH—Organic clays, high plasticity, fat clays	        | $RCI = exp [12.189 -1.942 ln(θ_g)]$	| 1.2  |
-|14	|WATER		        |                                                     | $RCI = 0$                           | 1    |
-|15	|BEDROCK		      |                                                     | $RCI = exp [3.987 + 0.815 ln(θ_g)]$	| 1.8  |
-|16	|OTHER (land-ice)	|                                                     | $RCI = exp [3.987 + 0.815 ln(θ_g)]$	| 1.2  |
+|1	|Sand	            |SP—few different particle sizes, little or no fines	| $RCI = exp [3.987 + 0.815 ln(θ_g)]$	| 1.75 |
+|2	|Loamy Sand	      |SM—Silty gravels, gravel–sand–silt mixtures	        | $RCI = exp [12.542-2.955 ln(θ_g)]$	| 1.75 |
+|3	|Sandy Loam	      |SM—Silty gravels, gravel–sand–silt mixtures	        | $RCI = exp [12.542-2.955 ln(θ_g)]$	| 1.7  |
+|4	|Silt Loam	      |ML—Inorganic silts, slight to no plasticity	        | $RCI = exp [11.936-2.407 ln(θ_g)]$	| 1.45 |
+|5	|Silt	            |ML—Inorganic silts, slight to no plasticity	        | $RCI = exp [11.936-2.407 ln(θ_g)]$	| 1.42 |
+|6	|Loam	            |CL—Inorganic clays, low to mod. plasticity	          | $RCI = exp [15.506-3.530 ln(θ_g)]$	| 1.55 |
+|7	|Sandy Clay Loam  |SC—Clayey gravels, gravel–sand–clay mixtures	        | $RCI = exp [12.542-2.955 ln(θ_g)]$	| 1.65 |
+|8	|Silty Clay Loam	|CL—Inorganic clays, low to mod. plasticity	          | $RCI = exp [15.506-3.530 ln(θ_g)]$	| 1.42 |
+|9	|Clay Loam	      |CL—Inorganic clays, low to mod. plasticity	          | $RCI = exp [15.506-3.530 ln(θ_g)]$	| 1.5  |
+|10	|Sandy Clay	      |SC—Clayey gravels, gravel–sand–clay mixtures	        | $RCI = exp [12.542-2.955 ln(θ_g)]$	| 1.6  |
+|11	|Silty Clay	      |CH—Inorganic clays, high plasticity, fat clays	      | $RCI = exp [13.686-2.705 ln(θ_g)]$	| 1.4  |
+|12	|Clay	            |CH—Inorganic clays, high plasticity, fat clays	      | $RCI = exp [13.686-2.705 ln(θ_g)]$	| 1.4  |
+|13	|Organic Material	|OH—Organic clays, high plasticity, fat clays	        | $RCI = exp [12.189 -1.942 ln(θ_g)]$	| 1.2  |
+|14	|Water		        |                                                     | $RCI = 0$                           | 1    |
+|15	|Bedrock		      |                                                     | $RCI = exp [3.987 + 0.815 ln(θ_g)]$	| 1.8  |
+|16	|Other (land-ice)	|                                                     | $RCI = exp [3.987 + 0.815 ln(θ_g)]$	| 1.2  |
 
 
 We converted volumetric soil water content to gravimetric soil moisture content using Eq. 1 as follows:
-θ_v=v_water/v_soil =  (m_water/ρ_water )/(m_soil/ρ_soil )=(θ_g.ρ_soil)/ρ_water   			(1)
-where θv is volumetric water content, which is the volume of liquid water per volume of soil, and θg is gravimetric water content, which is the mass of water per mass of dry soil. It is measured by weighing a soil sample (mwet), drying the sample to remove the water, and then weighing the dried soil (mdry). The density of water is close to 1000 kg/m3 and often ignored. Soil bulk density (ρbulk) is used for ρsoil. Soil bulk density is the ratio of soil dry mass to sample volume (Table 1) and was obtained from Morris and Lowery (1988).
+
+$θ_v=v_{water}/v_{soil} =  (m_{water}/ρ_{water})/(m_{soil}/ρ_{soil})=(θ_g.ρ_{soil})/ρ_{water}$
+
+where $θ_v$ is volumetric water content, which is the volume of liquid water per volume of soil, and $θ_g$ is gravimetric water content, which is the mass of water per mass of dry soil. It is measured by weighing a soil sample ($m_{wet}$), drying the sample to remove the water, and then weighing the dried soil ($m_{dry}$). The density of water is close to 1000 $kg/m^3$ and often ignored. Soil bulk density ($ρ_{bulk}$) is used for ρsoil. Soil bulk density is the ratio of soil dry mass to sample volume (Table 1) and was obtained from Morris and Lowery (1988).
 
 # Application design
 ## Methods and Asset Organization
