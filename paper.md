@@ -37,9 +37,9 @@ This article outlines the need, scientific context, application design, key func
 Snow–soil interactions significantly influence soil freeze–thaw dynamics [@Iwata2010; @Jafarov2014], moisture availability [@Haleakala2023], and vehicle mobility in snow-dominated regions [@AlbanoUnderReview]. Snowpacks act as thermal insulators, decoupling soil temperature from air temperature and reducing soil freezing during winter. This insulation effect [@Ge2010] is particularly pronounced under deeper snowpacks, which limit the penetration of cold air into the soil and conduction of heat from soil into the snowpack. However, shallow or intermittent snow cover can lead to frequent freeze–thaw cycles [@Rasouli2026], causing soil frost heave and destabilization, which degrade the structural integrity of soils and reduce their load-bearing capacity. The spatial variability of snow accumulation and melt further complicates soil conditions. Snowmelt infiltrates the soil unevenly due to factors such as topography, vegetation, soil freeze, and snow redistribution by wind [@Flint2021]. This results in heterogeneous soil moisture patterns, with wetter conditions persisting in areas of high snow accumulation or delayed melt. These wetter zones may experience reduced soil strength, increasing the risk of vehicle bogging or reduced traction. Conversely, drier areas with lower snow accumulation may exhibit compacted or frozen soils that can better support vehicle loads.
 During spring, soil beneath melting snowpacks often becomes saturated due to snowmelt rates that exceed the infiltration capacity of the soil [@Rasouli2026]. This saturation reduces soil shear strength and increases the likelihood of rutting or surface deformation under vehicular loads. Additionally, changes in snowpack dynamics due to shifts in climate patterns, such as reduced snow cover duration and earlier melt [@Rasouli2014], are expected to exacerbate these challenges by affecting the timing and extent of soil freeze-thaw cycles. Understanding these interactions is crucial for managing vehicle mobility in snow-dominated regions. Strategies such as timing vehicle operations to avoid peak thaw periods, improving drainage systems to mitigate waterlogging, and using vehicles with lower ground pressure can help minimize mobility issues caused by snow–soil dynamics.
  
-High-spatial resolution soil moisture datasets obtained from land data assimilation systems, such as 1 km Western Land Data Assimilation System (WLDAS), offer detailed information on the daily evolution of water content in the soil column, but they are not directly translated into operational metrics of soil strength, trafficability, or ground mobility. WLDAS, developed by NASA’s Goddard Space Flight Center [@Erlingis2021], focuses on the western United States. The system uses the NASA Land Information System (LIS) [@Kumar2008; @PetersLidard2007] and the Noah Multi-parameterization (Noah–MP) land surface model [@Niu2011] to simulate snow and soil processes, downscaling the meteorological forcings obtained from the North American Land Data Assimilation System (NLDAS-2) [@Mitchell2004; @Xia2012] to compute the higher resolution snow accumulation and melt and soil moisture and temperature. Its high-resolution outputs can be used for contextualizing soil–snow interactions. 
+High-spatial resolution soil moisture datasets obtained from land data assimilation systems, such as 1 km Western Land Data Assimilation System (WLDAS), offer detailed information on the daily evolution of water content in the soil column, but they are not directly translated into operational metrics of soil strength, trafficability, or ground mobility. WLDAS, developed by NASA’s Goddard Space Flight Center [@Erlingis2021], focuses on the western United States. The system uses the NASA Land Information System (LIS) [@Kumar2008; @PetersLidard2007] and the Noah Multi-parameterization (Noah–MP) land surface model [@Niu2011] to simulate snow and soil processes, downscaling the meteorological forcings obtained from the North American Land Data Assimilation System (NLDAS-2) [@Mitchell2004] to compute the higher resolution snow accumulation and melt and soil moisture and temperature. Its high-resolution outputs can be used for contextualizing soil–snow interactions. 
 To apply the land surface model outputs to defense, emergency management, agricultural operations, and infrastructure planning, spatially explicit indices such as Rating Cone Index (RCI) [@Knight1961; @SullivanAnderson2000] is needed to capture how soil moisture and texture jointly influence soil strength and vehicle mobility under varying climatic conditions. Existing global land data assimilation system (GLDAS) and other regional data assimilation systems focus primarily on hydrological states and fluxes rather than application-ready mobility indices, creating a gap between climate data products and ground operations modeling.
-The western United States experiences strong hydroclimatic gradients, snow and rain-on-snow events, and complex soil–landcover mosaics that modulate soil strength and trafficability. The presence or lack of snow cover is one of the primary variables that controls timing and spatial variability of water inputs to the soil as well as its temperature and freeze thaw cycles (e.g., @Williams2009; @Kormos2014; @Maurer2014; @Harpold2014). Our understanding of these snow–soil relationships in complex terrain and across elevational gradients is limited. Further, little work has been carried out to examine how accurately the commonly used atmospheric and land surface model outputs at various spatial resolutions depict these snow-soil relationships. A dedicated application that integrates WLDAS soil moisture climatology with LIS-based soil texture maps to compute RCI provides an essential linkage between land surface modeling outputs and operational decision support for trail design, off-road mobility assessments, and climate variability impact studies on terrestrial accessibility.
+The western United States experiences strong hydroclimatic gradients, snow and rain-on-snow events, and complex soil–landcover mosaics that modulate soil strength and trafficability. The presence or lack of snow cover is one of the primary variables that controls timing and spatial variability of water inputs to the soil as well as its temperature and freeze thaw cycles (e.g., @Williams2009; @Kormos2014; @Harpold2014). Our understanding of these snow–soil relationships in complex terrain and across elevational gradients is limited. Further, little work has been carried out to examine how accurately the commonly used atmospheric and land surface model outputs at various spatial resolutions depict these snow-soil relationships. A dedicated application that integrates WLDAS soil moisture climatology with LIS-based soil texture maps to compute RCI provides an essential linkage between land surface modeling outputs and operational decision support for trail design, off-road mobility assessments, and climate variability impact studies on terrestrial accessibility.
 
 
 
@@ -57,26 +57,26 @@ The WLDAS estimated soil temperature and soil moisture for four soil layers of 0
 The application is based on four primary data streams: (1) soil texture classes from LIS input files and derived georeferenced GeoTIFFs, (2) WLDAS daily soil moisture fields for four vertical layers, (3) WLDAS daily soil temperature fields, and (4) WLDAS daily snow depth. LIS Noah-MP input uses a 16-class soil texture map (STATSGO+FAO blended), reprojected to a 0.01° (~1 km) grid for WLDAS domains via LIS preprocessing. The dominant soil texture class per grid cell is computed by taking the maximum over the 16-class texture fractions, then cropped and reprojected to the WLDAS western United States extent.
 WLDAS soil moisture data are available as climatological GeoTIFFs for four depth ranges and daily time steps over a climatological year (DOY 1–366). Spatial resolution is 0.01° (~1 km), matching the WLDAS Noah-MP grid, and temporal resolution is daily, allowing the construction of annual cycles of depth-integrated soil moisture and RCI.
 
-Table 1.	Key soil classes used in the WLDAS dataset and associated RCI equation for each soil texture. $θ_g$ denotes gravimetric soil moisture content in kg/kg or percent.
-|Soil Class	| Soil Texture (USDA)	|Soil Texture (USCS)	| RCI Equation [@Sullivan1997]	| Bulk Density ($g/cm^3$) |
-| :---: | :--- | :--- | :--- | :---: |
-|1	|Sand	            |SP—few different particle sizes, little or no fines	| $RCI = exp [3.987 + 0.815 ln(θ_g)]$	| 1.75 |
-|2	|Loamy Sand	      |SM—Silty gravels, gravel–sand–silt mixtures	        | $RCI = exp [12.542-2.955 ln(θ_g)]$	| 1.75 |
-|3	|Sandy Loam	      |SM—Silty gravels, gravel–sand–silt mixtures	        | $RCI = exp [12.542-2.955 ln(θ_g)]$	| 1.7  |
-|4	|Silt Loam	      |ML—Inorganic silts, slight to no plasticity	        | $RCI = exp [11.936-2.407 ln(θ_g)]$	| 1.45 |
-|5	|Silt	            |ML—Inorganic silts, slight to no plasticity	        | $RCI = exp [11.936-2.407 ln(θ_g)]$	| 1.42 |
-|6	|Loam	            |CL—Inorganic clays, low to mod. plasticity	          | $RCI = exp [15.506-3.530 ln(θ_g)]$	| 1.55 |
-|7	|Sandy Clay Loam  |SC—Clayey gravels, gravel–sand–clay mixtures	        | $RCI = exp [12.542-2.955 ln(θ_g)]$	| 1.65 |
-|8	|Silty Clay Loam	|CL—Inorganic clays, low to mod. plasticity	          | $RCI = exp [15.506-3.530 ln(θ_g)]$	| 1.42 |
-|9	|Clay Loam	      |CL—Inorganic clays, low to mod. plasticity	          | $RCI = exp [15.506-3.530 ln(θ_g)]$	| 1.5  |
-|10	|Sandy Clay	      |SC—Clayey gravels, gravel–sand–clay mixtures	        | $RCI = exp [12.542-2.955 ln(θ_g)]$	| 1.6  |
-|11	|Silty Clay	      |CH—Inorganic clays, high plasticity, fat clays	      | $RCI = exp [13.686-2.705 ln(θ_g)]$	| 1.4  |
-|12	|Clay	            |CH—Inorganic clays, high plasticity, fat clays	      | $RCI = exp [13.686-2.705 ln(θ_g)]$	| 1.4  |
-|13	|Organic Material	|OH—Organic clays, high plasticity, fat clays	        | $RCI = exp [12.189 -1.942 ln(θ_g)]$	| 1.2  |
-|14	|Water		        |                                                     | $RCI = 0$                           | 1    |
-|15	|Bedrock		      |                                                     | $RCI = exp [3.987 + 0.815 ln(θ_g)]$	| 1.8  |
-|16	|Other (land-ice)	|                                                     | $RCI = exp [3.987 + 0.815 ln(θ_g)]$	| 1.2  |
+Table: Table 1. Key soil classes used in the WLDAS dataset and associated RCI equation for each soil texture. $\theta_g$ denotes gravimetric soil moisture content in kg/kg or percent.
 
+| Soil Class | Soil Texture (USDA) | Soil Texture (USCS) | RCI Equation [@Sullivan1997] | Bulk Density ($g/cm^3$) |
+|:----------:|:---------------|:--------------------|:-----------------:|:------------:|
+| 1 | Sand | SP---few different particle sizes, little or no fines | $RCI = \exp[3.987 + 0.815\ln(\theta_g)]$ | 1.75 |
+| 2 | Loamy Sand | SM---Silty gravels, gravel--sand--silt mixtures | $RCI = \exp[12.542 - 2.955\ln(\theta_g)]$ | 1.75 |
+| 3 | Sandy Loam | SM---Silty gravels, gravel--sand--silt mixtures | $RCI = \exp[12.542 - 2.955\ln(\theta_g)]$ | 1.70 |
+| 4 | Silt Loam | ML---Inorganic silts, slight to no plasticity | $RCI = \exp[11.936 - 2.407\ln(\theta_g)]$ | 1.45 |
+| 5 | Silt | ML---Inorganic silts, slight to no plasticity | $RCI = \exp[11.936 - 2.407\ln(\theta_g)]$ | 1.42 |
+| 6 | Loam | CL---Inorganic clays, low to moderate plasticity | $RCI = \exp[15.506 - 3.530\ln(\theta_g)]$ | 1.55 |
+| 7 | Sandy Clay Loam | SC---Clayey gravels, gravel--sand--clay mixtures | $RCI = \exp[12.542 - 2.955\ln(\theta_g)]$ | 1.65 |
+| 8 | Silty Clay Loam | CL---Inorganic clays, low to moderate plasticity | $RCI = \exp[15.506 - 3.530\ln(\theta_g)]$ | 1.42 |
+| 9 | Clay Loam | CL---Inorganic clays, low to moderate plasticity | $RCI = \exp[15.506 - 3.530\ln(\theta_g)]$ | 1.50 |
+| 10 | Sandy Clay | SC---Clayey gravels, gravel--sand--clay mixtures | $RCI = \exp[12.542 - 2.955\ln(\theta_g)]$ | 1.60 |
+| 11 | Silty Clay | CH---Inorganic clays, high plasticity, fat clays | $RCI = \exp[13.686 - 2.705\ln(\theta_g)]$ | 1.40 |
+| 12 | Clay | CH---Inorganic clays, high plasticity, fat clays | $RCI = \exp[13.686 - 2.705\ln(\theta_g)]$ | 1.40 |
+| 13 | Organic Material | OH---Organic clays, high plasticity, fat clays | $RCI = \exp[12.189 - 1.942\ln(\theta_g)]$ | 1.20 |
+| 14 | Water |  | $RCI = 0$ | 1.00 |
+| 15 | Bedrock |  | $RCI = \exp[3.987 + 0.815\ln(\theta_g)]$ | 1.80 |
+| 16 | Other (land-ice) |  | $RCI = \exp[3.987 + 0.815\ln(\theta_g)]$ | 1.20 |
 
 We converted volumetric soil water content to gravimetric soil moisture content as follows:
 
@@ -161,7 +161,7 @@ Citations to entries in paper.bib should be in
 format.
 
 If you want to cite a software repository URL (e.g. something on GitHub without a preferred
-citation) then you can do it with the example BibTeX entry below for @fidgit.
+citation) then you can do it with the example BibTeX entry below for 
 
 For a quick reference, the following citation commands can be used:
 - `@author:2001`  ->  "Author et al. (2001)"
