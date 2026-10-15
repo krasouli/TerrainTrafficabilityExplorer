@@ -74,7 +74,7 @@ WLDAS soil moisture data are available as climatological GeoTIFFs for four depth
 
 Table 1.	Key soil classes used in the WLDAS dataset and associated RCI equation for each soil texture. $θ_g$ denotes gravimetric soil moisture content in kg/kg or percent.
 |Soil Class	| Soil Texture (USDA)	|Soil Texture (USCS)	| RCI Equation (Sullivan et al. 1997)	| Bulk Density ($g/cm^3$) |
-| :--- | :---: | :---: | :---: | ---: |
+| :---: | :--- | :--- | :--- | :---: |
 |1	|Sand	            |SP—few different particle sizes, little or no fines	| $RCI = exp [3.987 + 0.815 ln(θ_g)]$	| 1.75 |
 |2	|Loamy Sand	      |SM—Silty gravels, gravel–sand–silt mixtures	        | $RCI = exp [12.542-2.955 ln(θ_g)]$	| 1.75 |
 |3	|Sandy Loam	      |SM—Silty gravels, gravel–sand–silt mixtures	        | $RCI = exp [12.542-2.955 ln(θ_g)]$	| 1.7  |
