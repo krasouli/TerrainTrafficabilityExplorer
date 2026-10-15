@@ -1,3 +1,4 @@
+text
 ---
 # Use plain text in the title; do not use backticks for code formatting.
 title: 'Terrain Trafficability Explorer: An Interactive Google Earth Engine Application for Assessing Seasonal Ground Trafficability Across the Western United States'
@@ -26,6 +27,7 @@ authors:
     affiliation: Division of Hydrologic Sciences, Desert Research Institute, 2215 Raggio Pkwy, Reno, NV 89512 USA
 date: 15 October 2026
 bibliography: paper.bib
+csl: apa.csl
 ---
 
 # Summary
