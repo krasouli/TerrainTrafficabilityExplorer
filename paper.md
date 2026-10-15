@@ -9,41 +9,28 @@ tags:
   - Soil Strength
 authors:
   - name: Kabir Rasouli
-    orcid: 0000-0000-0000-0000
-    affiliation: Division of Atmospheric Sciences, Desert Research Institute
+    orcid: 0000-0002-8176-2132
+    affiliation: Division of Atmospheric Sciences, Desert Research Institute, 2215 Raggio Pkwy, Reno, NV 89512 USA
     corresponding: true # (This is how to denote the corresponding author)
   - name: Daniel McEvoy
-    orcid: 0000-0000-0000-0000
-    affiliation:  Division of Atmospheric Sciences, Desert Research Institute
+    orcid: 0000-0003-3800-718X
+    affiliation:  Division of Atmospheric Sciences, Desert Research Institute, 2215 Raggio Pkwy, Reno, NV 89512 USA
   - name: Christine Albano
-    orcid: 0000-0000-0000-0000
-    affiliation: Division of Hydrologic Sciences, Desert Research Institute
+    orcid: 0000-0003-1610-6961
+    affiliation: Division of Hydrologic Sciences, Desert Research Institute, 2215 Raggio Pkwy, Reno, NV 89512 USA
   - name: Joseph Ammatelli
-    orcid: 0000-0000-0000-0000
-    affiliation: Division of Hydrologic Sciences, Desert Research Institute
+    orcid: 0000-0003-4672-3418
+    affiliation: Division of Hydrologic Sciences, Desert Research Institute, 2215 Raggio Pkwy, Reno, NV 89512 USA
   - name: Mark Hausner
-    orcid: 0000-0000-0000-0000
-    affiliation: Division of Hydrologic Sciences, Desert Research Institute
-    affiliation: 3
-  - given-names: Ludwig
-    dropping-particle: van
-    surname: Beethoven
-    affiliation: 3
-affiliations:
- - name: Lyman Spitzer, Jr. Fellow, Princeton University, United States
-   index: 1
-   ror: 00hx57361
- - name: Institution Name, Country
-   index: 2
- - name: Independent Researcher, Country
-   index: 3
+    orcid: 0000-0001-7941-6970
+    affiliation: Division of Hydrologic Sciences, Desert Research Institute, 2215 Raggio Pkwy, Reno, NV 89512 USA
 date: 15 October 2026
 bibliography: paper.bib
 ---
 
 # Summary
 
-This article outlines the need, scientific context, application design, key functions, and research impact of an analytical application called Terrain Trafficability Explorer that provides daily Go/No-Go terrain trafficability maps and time series from soil moisture and temperature and snow depth. Terrain Trafficability Explorer is an interactive Google Earth Engine application for assessing seasonal ground trafficability across the western United States. It combines a soil-texture-based Rating Cone Index (RCI), computed from Western Land Data Assimilation System (WLDAS) climatological soil moisture and per-texture-class bulk density, with snow depth, snow sinkage, and soil temperature to classify daily Go/No-Go mobility conditions for any day of the year. The application integrates NASA’s WLDAS soil moisture climatology, obtained from Land Information System (LIS), and soil texture maps to compute RCI for the western United States. The application is designed for high-resolution (1km) hydrological and trafficability analysis, using depth-weighted multi-layer soil moisture fields and texture-specific empirical RCI equations.
+This article outlines the need, scientific context, application design, key functions, and research impact of an analytical application called `Terrain Trafficability Explorer` that provides daily Go/No-Go terrain trafficability maps and time series from soil moisture and temperature and snow depth. Terrain Trafficability Explorer is an interactive Google Earth Engine application for assessing seasonal ground trafficability across the western United States. It combines a soil-texture-based Rating Cone Index (RCI), computed from Western Land Data Assimilation System (WLDAS) climatological soil moisture and per-texture-class bulk density, with snow depth, snow sinkage, and soil temperature to classify daily Go/No-Go mobility conditions for any day of the year. The application integrates NASA’s WLDAS soil moisture climatology, obtained from Land Information System (LIS), and soil texture maps to compute RCI for the western United States. The application is designed for high-resolution (1 km) hydrological and trafficability analysis, using depth-weighted multi-layer soil moisture fields and texture-specific empirical RCI equations.
 
 # Statement of need
 
