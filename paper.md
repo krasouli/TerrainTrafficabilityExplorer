@@ -52,7 +52,8 @@ The insulating characteristics, low thermal conductivity, and high albedo of sno
 The objectives of the developed application are to (1) understand the complex interactions between snow cover, snow depth, and soil moisture and soil strength and (2) visualize Go/NoGo conditions over space and during a normal, wet and dry year in a user-friendly web interface. To achieve this, we used WLDAS gridded datasets to accurately depict these interactions across the western United States. By addressing the objectives of this study, we aim to provide insight into safely moving across the landscape. This application can inform decisions in fields like civil engineering, emergency response, and environmental management.
 
 # Data and Climatological Maps
-The WLDAS is a gridded dataset designed to support hydrological and environmental research and monitoring. WLDAS focuses on simulating water and energy budget variables for the western United States. The WLDAS is a high-resolution land data assimilation system tailored for the western United States, developed by NASA’s Goddard Space Flight Center [@Erlingis2021]. It integrates meteorological data, satellite observations, and land surface modeling to produce daily estimates of hydrological and energy budget variables such as soil moisture, evapotranspiration, and groundwater recharge. Designed with water resource management in mind, WLDAS supports drought assessment and groundwater sustainability planning. Its outputs, spanning from 1979 through 2022 at a 1-km resolution, are invaluable for contextualizing extreme hydrological events like droughts and floods. The system simulates land surface processes and provides critical tools for water managers and stakeholders in the region.
+
+The WLDAS is a gridded dataset designed to support hydrological and environmental research and monitoring. WLDAS focuses on simulating water and energy budget variables for the western United States. The WLDAS is a high-resolution land data assimilation system tailored for the western United States, developed by NASA’s Goddard Space Flight Center [@Erlingis2021]. It integrates meteorological data, satellite observations, and land surface modeling to produce daily estimates of hydrological and energy budget variables such as soil moisture, evapotranspiration, and groundwater recharge. Designed with water resource management in mind, WLDAS supports drought assessment and groundwater sustainability planning. Its outputs, spanning from 1979 through 2022 at a 1 km resolution, are invaluable for contextualizing extreme hydrological events like droughts and floods. The system simulates land surface processes and provides critical tools for water managers and stakeholders in the region.
 The WLDAS estimated soil temperature and soil moisture for four soil layers of 0–10, 10–40, 40–100, and 100–200 cm. We used a depth-weighted average for the soil profile to estimate the RCI for different soil textures. The variations in soil texture cause site-specific conditions that influence terrain accessibility.
 The application is based on four primary data streams: (1) soil texture classes from LIS input files and derived georeferenced GeoTIFFs, (2) WLDAS daily soil moisture fields for four vertical layers, (3) WLDAS daily soil temperature fields, and (4) WLDAS daily snow depth. LIS Noah-MP input uses a 16-class soil texture map (STATSGO+FAO blended), reprojected to a 0.01° (~1 km) grid for WLDAS domains via LIS preprocessing. The dominant soil texture class per grid cell is computed by taking the maximum over the 16-class texture fractions, then cropped and reprojected to the WLDAS western United States extent.
 WLDAS soil moisture data are available as climatological GeoTIFFs for four depth ranges and daily time steps over a climatological year (DOY 1–366). Spatial resolution is 0.01° (~1 km), matching the WLDAS Noah-MP grid, and temporal resolution is daily, allowing the construction of annual cycles of depth-integrated soil moisture and RCI.
@@ -88,7 +89,7 @@ where $θ_v$ is volumetric water content, which is the volume of liquid water pe
 ## Methods and Asset Organization
 Terrain Trafficability Explorer is an interactive Google Earth Engine application for assessing seasonal ground trafficability across the western United States. It combines a texture-based RCI, computed from WLDAS climatological soil moisture and per-texture-class bulk density, with snow depth and soil temperature to classify daily Go/No-Go mobility conditions for any day of the year (1–366). The Terrain Trafficability Explorer application generates maps that illustrate spatial variability of climatological soil moisture, soil temperature, frozen and unfrozen areas, snow depth, snow sinkage, and RCI for each day of the year for the western United States (Figure 1). The Terrain Trafficability Explorer application, accessible through the link https://rci-nwus.projects.earthengine.app/view/drivemud, implements a depth-weighted soil column moisture calculation by assigning each WLDAS layer a thickness (10, 30, 60, 100 cm) and computing a weighted average soil moisture fraction across the 0–200 cm profile, normalized by total depth. The full 2 m soil profile was used to represent antecedent and root-zone wetness, including deeper moisture storage that may not be captured by the upper two layers alone. Although near-surface moisture strongly controls immediate traction and rutting, heavy vehicle loads can transmit stress into the subsoil. Therefore, the integrated profile provides a more stable indicator of overall soil load-bearing conditions and reduces sensitivity to short-lived surface wetting or drying. The resulting volumetric fraction is converted to gravimetric soil moisture content (kg/kg) and combined with the dominant soil texture class per pixel to evaluate texture-specific RCI equations (Table 1). Data assets contain WLDAS GeoTIFFs (soil moisture (four layers and entire soil profile average) and soil temperature (top 10 cm soil layer), and snow depth) and LIS-derived soil texture maps, and RCI GeoTIFFs.
 
-![Main page of the Terrain Trafficability Explorer application to select the day of year and map and analyze the temporal variability of the variable for any location in the western United States based on climatological daily variables obtained from 42 years of the WLDAS data (1980–2022). Link to the application is https://rci-nwus.projects.earthengine.app/view/drivemud (Password: frozensoil2026).\label{fig:example}](figure.png)
+![Fig. 1 Main page of the Terrain Trafficability Explorer application to select the day of year and map and analyze the temporal variability of the variable for any location in the western United States based on climatological daily variables obtained from 42 years of the WLDAS data (1980–2022). Link to the application is https://rci-nwus.projects.earthengine.app/view/drivemud (Password: frozensoil2026).\label{fig1}](Fig1.jpg){height=100%}
 
 ## Estimation of Snow Sinkage
 Snow sinkage, defined as the vertical penetration of a vehicle’s tire or track into a snowpack under load [@Richmond1995], is a critical parameter for predicting off-road mobility in winter and high-elevation terrain. Sinkage is most commonly estimated using a Bekker-type pressure–sinkage relationship, expressed as $P=(k_c b+k_∅)z^n$, where $P$ is the applied ground pressure, $k_c$  and $k_∅$ are the cohesive and frictional deformation moduli of the snowpack, $b$ is the contact width, $z$ is sinkage depth, and n is an empirically derived sinkage exponent that captures the nonlinear compressibility of snow. Because snow is far more compressible than mineral soil, the relationship between pressure and sinkage is markedly nonlinear at low densities (below roughly 500 $kg/m^3$), requiring density- and depth-dependent calibration of these coefficients rather than assuming soil-like linear elastic patterns. The U.S. Army Cold Regions Research and Engineering Laboratory’s Shallow Snow Mobility Model [@Richmond1995] formalizes this by computing final sinkage ($z_f$) as a function of fresh snow depth and the ratio of snow density on DOY day of year to maximum compacted snow density, $z_f=h_0 (1-ρ_{DOY}/ρ_f)$, allowing sinkage to be estimated from readily observable snow depth and density inputs rather than direct field penetrometer testing [@Shoop2020; @Richmond1995]. Snow density itself is the dominant control on trafficability outcomes, with the most difficult mobility conditions occurring in the 0.3–0.4 $g/cm^3$ range, since snow above approximately 0.5 $g/cm^3$ produces little to no vehicle sinkage and behaves more like a supportive surface. Final snow density after sinkage can be estimated based on the ground pressure ($P_{max}$), typically ranging from 210 kPa to over 700 kPa for tracked vehicles, using the following equation [@Shoop2020]:
@@ -105,19 +106,26 @@ The workflow proceeds in three stages. First, WLDAS input NetCDF files are calle
 Third, for each day of year, the four WLDAS soil moisture layers are ingested, alternative naming patterns are resolved via globbing, and depth-weighted average soil moisture is computed across all layers. The soil texture raster is aligned to the WLDAS grid once, then reused across days as a reference array of texture class codes. For each pixel, the application identifies the texture class (1–16) and applies the corresponding RCI equation derived from @Sullivan1997 (Table 1). RCI is computed as $exp(a + b× ln(θ_g))$ for classes with defined coefficients, with class 14 treated as RCI = 0 to represent non-soil or water surfaces.
 
 ## Key Functions and Visualizations
+
 Core Functions. Key functions read WLDAS and texture GeoTIFFs and return data arrays with metadata; reproject the soil texture map onto the WLDAS grid using nearest-neighbor resampling and LIS/WLDAS coordinate reference system definitions; Two other functions apply depth-weighted aggregation across the four soil layers and evaluates the texture-specific RCI equations per pixel. The RCI coefficients are stored in a mapping of texture class IDs (1–16) to parameters a and b. For each class, the RCI function computes $ln(θ_g)$, then calculates RCI via $exp(a + b× ln(θ_g))$. Pixels whose texture class is 14 or outside 1–16 are assigned $RCI = 0$. Masks are used to apply each class’s equation to only the corresponding subset of pixels, enabling efficient vectorized computation for large grids.
 Data Description Within Functions. Within the processing loop, the application operates on daily climatological soil moisture GeoTIFFs for day of year, ensuring that each day’s four layers correspond to the same spatial grid and coordinate reference system. The depth-weighted moisture function assumes volumetric soil moisture values between 0 and 1, and valid pixel masks exclude values outside this range when computing statistics. The soil texture raster is assumed to contain integer codes 1–16 representing STATSGO+FAO-derived texture classes used in LIS Noah-MP runs and was accessed from the website https://portal.nccs.nasa.gov/datashare/WLDAS_css/wldas_domain/. Asset paths are parameterized in the configuration section of the Application’s main JavaScript so that one can point the application to different climatology folders or texture maps. 
 Visualizations. Users can toggle between climatological mean, dry (5th percentile), and wet (95th percentile) soil-moisture and RCI conditions, adjust the RCI threshold used for the Go/No-Go rule, and click anywhere on the map to generate a full annual time series of RCI, gravimetric soil moisture, snow depth, and soil temperature at that location. The tool is designed to support field logistics planning, off-road mobility assessment, and seasonal terrain-access predictability.
 
 How to Use This Tool. The following steps need to be taken to visualize and analyze the soil strength and trafficability (Figure 1):
+
 1. Move the date slider to pick a day of the year (1–366).
+
 2. Choose a display layer: RCI (mean/dry/wet), gravimetric soil moisture (mean/dry/wet), snow depth, soil temperature, frozen soil, or Go/No-Go.
+
 3. Set the RCI threshold (psi) and pick which RCI percentile (mean, 5th, or 95th) drives the Go/No-Go classification.
+
 4. Click “Show Go/No-Go Map” for the full trafficability map.
+
 5. Click any point on the map (or enter manually the latitude and longitude of interest) to plot a full 366-day climatology of RCI, soil moisture, snow depth, soil temperature, and Go/No-Go at that location.
+
 Go/No-Go Rule. The rules for Go (passable terrain) and No-Go (impassable terrain) can be customized by the user. For instance, it can be as follows: GO if soil is frozen (≤ 0 ℃), OR if the selected RCI percentile exceeds the threshold AND snow depth is below 0.20 m. Upon selecting a point of interest, a five-panel figure shows daily soil profile average RCI, soil moisture, soil temperature, snow depth, and Go/NoGo status as continuous time series, with shaded areas highlighting seasonal wetness and associated reductions in cone index (Figure 2). These plots provide intuitive insight into how soil strength varies across the hydrological year for the western United States.
 
-![Seasonal variability of climatological daily variables obtained from 42 years of daily WLDAS data for the selected point of interest.\label{fig:example}](figure.png)
+![Fig. 2 Seasonal variability of climatological daily variables obtained from 42 years of daily WLDAS data for the selected point of interest.\label{fig2}](fig2.jpg){height=100%}
 
 Spatial visualizations include static maps from individual RCI GeoTIFFs for selected DOYs, revealing spatial gradients in soil strength linked to underlying soil texture patterns and moisture anomalies. These maps can be layered with landcover, elevation, and transportation networks in GIS software to explore terrain trafficability, identify potential bottlenecks for ground operations, and evaluate mitigation strategies.
 
@@ -129,62 +137,23 @@ In the broader context of land surface modeling and Earth observation, this appl
 The western United States-focused RCI application provides a scalable, extensible platform that can be replicated for other regions and datasets, using existing NASA land data assimilation systems and LIS infrastructures and the growing ecosystem of high-resolution soil moisture products. By clearly structuring data inputs, methods, asset paths, and visualization outputs, it facilitates both operational deployment and academic research on the coupled dynamics of soil moisture, texture, and ground mobility.
 
 # Access to Data and Source Code
+
 The source codes and data assets of the application can be accessed using the link, user, and password below. Note that the link will expire in 4 months.
+
 Link : https://crushftp.dri.edu/?u=Me784PuX&p=ZyGRJ62U
+
 Username : Me784PuX
+
 Password : ZyGRJ62U
+
 Permanent Link to access source codes: https://github.com/krasouli/TerrainTrafficabilityExplorer
-
-
-
-# Mathematics
-
-Single dollars ($) are required for inline mathematics e.g. $f(x) = e^{\pi/x}$
-
-Double dollars make self-standing equations:
-
-$$\Theta(x) = \left\{\begin{array}{l}
-0\textrm{ if } x < 0\cr
-1\textrm{ else}
-\end{array}\right.$$
-
-You can also use plain \LaTeX for equations
-\begin{equation}\label{eq:fourier}
-\hat f(\omega) = \int_{-\infty}^{\infty} f(x) e^{i\omega x} dx
-\end{equation}
-and refer to \autoref{eq:fourier} from text.
-
-# Citations
-
-Citations to entries in paper.bib should be in
-[rMarkdown](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html)
-format.
-
-If you want to cite a software repository URL (e.g. something on GitHub without a preferred
-citation) then you can do it with the example BibTeX entry below for 
-
-For a quick reference, the following citation commands can be used:
-- `@author:2001`  ->  "Author et al. (2001)"
-- `[@author:2001]` -> "(Author et al., 2001)"
-- `[@author1:2001; @author2:2001]` -> "(Author1 et al., 2001; Author2 et al., 2002)"
-
-# Figures
-
-Figures can be included like this:
-![Caption for example figure.\label{fig:example}](figure.png)
-and referenced from text using \autoref{fig:example}.
-
-Figure sizes can be customized by adding an optional second parameter:
-![Caption for example figure.](figure.png){ width=20% }
 
 # AI usage disclosure
 
-No generative AI tools were used in the development of this software, the writing
-of this manuscript, or the preparation of supporting materials.
+The authors used Claude and Grammarly to assist with adding multiple display layers to the application and checking grammar. All content has been reviewed and revised by the authors. The authors take full responsibility for the accuracy and originality of the work.
 
 # Acknowledgements
 
-We acknowledge contributions from Brigitta Sipocz, Syrtis Major, and Semyeong
-Oh, and support from Kathryn Johnston during the genesis of this project.
+This material is primarily supported by the Broad Agency Announcement Program and Cold Regions Research and Engineering Laboratory (ERDCCRREL) under Contract No. W913E523C0002 and The Regents of the University of California. Any opinions, findings, and conclusions or recommendations expressed in this publication are those of the author(s) and do not necessarily reflect the views of the ERDCCRREL or of The Regents of the University of California.
 
 # References
