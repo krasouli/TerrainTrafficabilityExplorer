@@ -9,19 +9,24 @@ tags:
 authors:
   - name: Kabir Rasouli
     orcid: 0000-0002-8176-2132
-    affiliation: Division of Atmospheric Sciences, Desert Research Institute, 2215 Raggio Pkwy, Reno, NV 89512 USA
+
+    affiliation: Division of Atmospheric Sciences, Desert Research Institute, 2215 Raggio Pkwy, Reno, NV 89512 USA; Email: kabir.rasouli@dri.edu
     corresponding: true 
   - name: Daniel McEvoy
     orcid: 0000-0003-3800-718X
+
     affiliation:  Division of Atmospheric Sciences, Desert Research Institute, 2215 Raggio Pkwy, Reno, NV 89512 USA
   - name: Christine Albano
     orcid: 0000-0003-1610-6961
+
     affiliation: Division of Hydrologic Sciences, Desert Research Institute, 2215 Raggio Pkwy, Reno, NV 89512 USA
   - name: Joseph Ammatelli
     orcid: 0000-0003-4672-3418
+
     affiliation: Division of Hydrologic Sciences, Desert Research Institute, 2215 Raggio Pkwy, Reno, NV 89512 USA
   - name: Mark Hausner
     orcid: 0000-0001-7941-6970
+
     affiliation: Division of Hydrologic Sciences, Desert Research Institute, 2215 Raggio Pkwy, Reno, NV 89512 USA
 date: '15 October 2026'
 bibliography: paper.bib
@@ -61,7 +66,7 @@ The application is based on four primary data streams: (1) soil texture classes,
 
 WLDAS soil moisture data are available as climatological GeoTIFFs for four depth ranges and daily time steps over a climatological year (DOY 1–366). Spatial resolution is 0.01° (~1 km), and temporal resolution is daily, allowing the construction of annual cycles of depth-integrated soil moisture and RCI.
 
-Table: Table 1. Key soil classes used in the WLDAS dataset and associated RCI equation for each soil texture. $\theta_g$ denotes gravimetric soil moisture content in kg/kg or percent.
+Table: Key soil classes used in the WLDAS dataset and associated RCI equation for each soil texture. $\theta_g$ denotes gravimetric soil moisture content in kg/kg or percent.
 
 | Soil Class | Soil Texture (USDA) | Soil Texture (USCS) | RCI Equation [@Sullivan1997] | Bulk Density ($g/cm^3$) |
 |:----------:|:---------------|:--------------------|:-----------------:|:------------:|
@@ -92,7 +97,7 @@ where $\theta_v$ is volumetric water content, which is the volume of liquid wate
 ## Methods and Asset Organization
 Terrain Trafficability Explorer is an interactive Google Earth Engine application for assessing seasonal ground trafficability across the western United States. It combines a texture-based RCI, computed from WLDAS climatological soil moisture and per-texture-class bulk density, with snow depth and soil temperature to classify daily Go/No-Go mobility conditions for any day of the year (1–366). The Terrain Trafficability Explorer application generates maps that illustrate spatial variability of climatological soil moisture, soil temperature, frozen and unfrozen areas, snow depth, snow sinkage, and RCI for each day of the year for the western United States (Figure 1). The application, accessible through the link https://rci-nwus.projects.earthengine.app/view/drivemud, implements a depth-weighted soil column moisture calculation by assigning each WLDAS layer a thickness (10, 30, 60, 100 cm) and computing a weighted average soil moisture fraction across the 0–200 cm profile, normalized by total depth. The full 2 m soil profile was used to represent antecedent and root-zone wetness, including deeper moisture storage that may not be captured by the upper two layers alone. Although near-surface moisture strongly controls immediate traction and rutting, heavy vehicle loads can transmit stress into the subsoil. Therefore, the integrated profile provides a more stable indicator of overall soil load-bearing conditions and reduces sensitivity to short-lived surface wetting or drying. The resulting volumetric fraction is converted to gravimetric soil moisture content (kg/kg) and combined with the dominant soil texture class per pixel to evaluate texture-specific RCI equations (Table 1). Data assets contain WLDAS GeoTIFFs (soil moisture (four layers and entire soil profile average) and soil temperature (top 10 cm soil layer), and snow depth), soil texture maps, and RCI GeoTIFFs.
 
-![Fig. 1 Main page of the Terrain Trafficability Explorer application to select the day of year and map and analyze the seasonal cycle of the variables for any location in the western United States based on daily climatologies obtained from 42 years of the WLDAS data (1980–2022). Link to the application is https://rci-nwus.projects.earthengine.app/view/drivemud (Password: frozensoil2026).\label{fig1}](Fig1.jpg){height=100%}
+![Main page of the Terrain Trafficability Explorer application to select the day of year and map and analyze the seasonal cycle of the variables for any location in the western United States based on daily climatologies obtained from 42 years of the WLDAS data (1980–2022). Link to the application is https://rci-nwus.projects.earthengine.app/view/drivemud (Password: frozensoil2026).\label{fig1}](Fig1.pdf){height=100%}
 
 ## Estimation of Snow Sinkage
 Snow sinkage, defined as the vertical penetration of a vehicle’s tire or track into a snowpack under load [@Richmond1995], is a critical parameter for predicting off-road mobility in winter and high-elevation terrain. Sinkage is most commonly estimated using a Bekker-type pressure–sinkage relationship, expressed as $P=(k_c b+k_∅)z^n$, where $P$ is the applied ground pressure, $k_c$  and $k_∅$ are the cohesive and frictional deformation moduli of the snowpack, $b$ is the contact width, $z$ is sinkage depth, and $n$ is an empirically derived sinkage exponent that captures the nonlinear compressibility of snow. Because snow is far more compressible than mineral soil, the relationship between pressure and sinkage is markedly nonlinear at low densities (below roughly 500 $kg/m^3$), requiring density- and depth-dependent calibration of these coefficients rather than assuming soil-like linear elastic patterns. The U.S. Army Cold Regions Research and Engineering Laboratory’s Shallow Snow Mobility Model [@Richmond1995] formalizes this by computing final sinkage ($z_f$) as a function of fresh snow depth and the ratio of snow density on DOY day of year to maximum compacted snow density, $z_f=h_0 (1-ρ_{DOY}/ρ_f)$, allowing sinkage to be estimated from readily observable snow depth and density inputs rather than direct field penetrometer testing [@Shoop2020; @Richmond1995]. Snow density itself is the dominant control on trafficability outcomes, with the most difficult mobility conditions occurring in the 0.3–0.4 $g/cm^3$ range, since snow above approximately 0.5 $g/cm^3$ produces little to no vehicle sinkage and behaves more like a supportive surface. Final snow density after sinkage can be estimated based on the ground pressure ($P_{max}$), typically ranging from 210 kPa to over 700 kPa for tracked vehicles, using the following equation [@Shoop2020]:
@@ -129,7 +134,7 @@ How to Use This Tool. The following steps need to be taken to visualize and anal
 
 Go/No-Go Rule. The rules for Go (passable terrain) and No-Go (impassable terrain) can be customized by the user. For instance, it can be as follows: GO if soil is frozen (≤ 0 ℃), OR if the selected RCI percentile exceeds the threshold AND snow depth is below 0.20 m. Upon selecting a point of interest, a multi-panel figure shows daily soil profile average RCI, soil moisture, soil temperature, snow depth, and Go/NoGo status as continuous time series (Figure 2). These plots provide intuitive insight into how soil strength varies across the hydrological year.
 
-![Fig. 2 Seasonal variability of climatological daily variables obtained from 42 years of daily WLDAS data for the selected point of interest.\label{fig2}](Fig2.jpg){height=100%}
+![Seasonal variability of climatological daily variables obtained from 42 years of daily WLDAS data for the selected point of interest.\label{fig2}](Fig2.jpg){height=100%}
 
 Spatial visualizations include static maps from individual RCI GeoTIFFs for selected DOYs, revealing spatial gradients in soil strength linked to underlying soil texture patterns and moisture anomalies. These maps can be layered with landcover, elevation, and transportation networks in GIS software to explore terrain trafficability, identify potential bottlenecks for ground operations, and evaluate mitigation strategies.
 
