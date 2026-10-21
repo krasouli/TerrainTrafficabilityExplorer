@@ -9,24 +9,19 @@ tags:
 authors:
   - name: Kabir Rasouli
     orcid: 0000-0002-8176-2132
-
     affiliation: Division of Atmospheric Sciences, Desert Research Institute, 2215 Raggio Pkwy, Reno, NV 89512 USA; Email: kabir.rasouli@dri.edu
     corresponding: true 
   - name: Daniel McEvoy
     orcid: 0000-0003-3800-718X
-
     affiliation:  Division of Atmospheric Sciences, Desert Research Institute, 2215 Raggio Pkwy, Reno, NV 89512 USA
   - name: Christine Albano
     orcid: 0000-0003-1610-6961
-
     affiliation: Division of Hydrologic Sciences, Desert Research Institute, 2215 Raggio Pkwy, Reno, NV 89512 USA
   - name: Joseph Ammatelli
     orcid: 0000-0003-4672-3418
-
     affiliation: Division of Hydrologic Sciences, Desert Research Institute, 2215 Raggio Pkwy, Reno, NV 89512 USA
   - name: Mark Hausner
     orcid: 0000-0001-7941-6970
-
     affiliation: Division of Hydrologic Sciences, Desert Research Institute, 2215 Raggio Pkwy, Reno, NV 89512 USA
 date: '15 October 2026'
 bibliography: paper.bib
