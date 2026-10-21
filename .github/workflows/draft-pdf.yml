@@ -1,4 +1,4 @@
-name: Draft PDF
+name: Paper PDF
 on: [push]
 
 jobs:
