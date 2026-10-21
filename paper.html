@@ -12,10 +12,10 @@ per-texture-class bulk density, with snow depth, snow sinkage, and soil
 temperature to classify daily Go/No-Go mobility conditions for any day
 of the year. The application integrates NASA’s WLDAS soil moisture
 climatology, obtained from Land Information System (LIS), and soil
-texture maps to compute RCI for the western United States. The
-application is designed for high-resolution (1 km) hydrological and
-trafficability analysis, using depth-weighted multi-layer soil moisture
-fields and texture-specific empirical RCI equations.</p>
+texture maps to compute RCI. The application is designed for
+high-resolution (1 km) hydrological and trafficability analysis, using
+depth-weighted multi-layer soil moisture fields and texture-specific
+empirical RCI equations.</p>
 <h1 id="statement-of-need">Statement of need</h1>
 <p>Snow–soil interactions significantly influence soil freeze–thaw
 dynamics <span class="citation"
@@ -54,17 +54,17 @@ Additionally, changes in snowpack dynamics due to shifts in climate
 patterns, such as reduced snow cover duration and earlier melt <span
 class="citation" data-cites="Rasouli2014">(Rasouli et al., 2014)</span>,
 are expected to exacerbate these challenges by affecting the timing and
-extent of soil freeze-thaw cycles. Understanding these interactions is
+extent of soil freeze–thaw cycles. Understanding these interactions is
 crucial for managing vehicle mobility in snow-dominated regions.
 Strategies such as timing vehicle operations to avoid peak thaw periods,
 improving drainage systems to mitigate waterlogging, and using vehicles
 with lower ground pressure can help minimize mobility issues caused by
 snow–soil dynamics.</p>
 <p>High-spatial resolution soil moisture datasets obtained from land
-data assimilation systems, such as 1 km Western Land Data Assimilation
-System (WLDAS), offer detailed information on the daily evolution of
-water content in the soil column, but they are not directly translated
-into operational metrics of soil strength, trafficability, or ground
+data assimilation systems, such as Western Land Data Assimilation System
+(WLDAS), offer detailed information on the daily evolution of water
+content in the soil column, but they are not directly translated into
+operational metrics of soil strength, trafficability, or ground
 mobility. WLDAS, developed by NASA’s Goddard Space Flight Center <span
 class="citation" data-cites="Erlingis2021">(Erlingis et al.,
 2021)</span>, focuses on the western United States. The system uses the
@@ -194,11 +194,10 @@ and land surface modeling to produce daily estimates of hydrological and
 energy budget variables, such as soil moisture, evapotranspiration, and
 groundwater recharge. Designed with water resource management in mind,
 WLDAS supports drought assessment and groundwater sustainability
-planning. Its outputs, spanning from 1979 through 2022 at a 1 km
-resolution, are invaluable for contextualizing extreme hydrological
-events like droughts and floods. The system simulates land surface
-processes and provides critical tools for water managers and
-stakeholders in the region.</p>
+planning. Its outputs, spanning from 1980 through 2022, are invaluable
+for contextualizing extreme hydrological events like droughts and
+floods. The system simulates land surface processes and provides
+critical tools for water managers and stakeholders in the region.</p>
 <p>The WLDAS estimated soil temperature and soil moisture for four soil
 layers of 0–10, 10–40, 40–100, and 100–200 cm. We used a depth-weighted
 average for the soil profile to estimate the RCI for different soil
@@ -207,8 +206,7 @@ that influence terrain accessibility.</p>
 <p>The application is based on four primary data streams: (1) soil
 texture classes, (2) daily soil moisture fields for four vertical
 layers, (3) daily soil temperature fields, and (4) daily snow depth. LIS
-Noah-MP input uses a 16-class soil texture map (STATSGO/FAO blended),
-reprojected to a 0.01° (~1 km) grid for WLDAS domains. The dominant soil
+Noah-MP input uses a 16-class soil texture map. The dominant soil
 texture class per grid cell is computed by taking the maximum over the
 16-class texture fractions, then cropped and reprojected to the WLDAS
 western United States extent.</p>
@@ -522,28 +520,29 @@ substitutes gridded snow depth and modeled density as inputs to these
 empirical pressure-sinkage equations, enabling spatially distributed
 mobility and RCI-style trafficability mapping without requiring in situ
 cone penetrometer measurements at every location.</p>
-<p>##Computational Workflow The workflow proceeds in three stages.
-First, WLDAS input NetCDF files are called from Climate Engine <span
-class="citation" data-cites="Huntington2017">(Huntington et al.,
-2017)</span> to Google Earth Engine and their climatological daily maps
-of soil moisture at four layers, soil temperature at the top 10 cm
-layer, and snow depth for each day of year are calculated using Google
-Cloud Computing. Climate Engine was used to access and process the
-underlying gridded datasets in Google Earth Engine and to generate daily
-climatological maps for the study variables over the selected reference
-period. Its cloud-based framework enabled consistent day-of-year
-aggregation, spatial subsetting, visualization, and export without
-requiring local storage or processing of the complete data archive. The
-soil texture variable is extracted, and missing values are handled,
-terrain-aligned latitude/longitude grids define affine transforms, and
-the dominant soil texture map is generated and optionally stacked into
-16-band soil texture fraction GeoTIFFs. Second, dominant soil texture
-map is cropped and reprojected to the WLDAS soil moisture extent using
-the WLDAS GeoTIFFs as reference. The nearest-neighbor resampling
-preserves categorical texture codes, producing western United States
-soil map with dominant texture classes. Third, for each day of year, the
-four WLDAS soil moisture layers are ingested, and depth-weighted average
-soil moisture is computed across all layers. The soil texture raster is
+<h2 id="computational-workflow">Computational Workflow</h2>
+<p>The workflow proceeds in three stages. First, WLDAS input NetCDF
+files are called from Climate Engine <span class="citation"
+data-cites="Huntington2017">(Huntington et al., 2017)</span> to Google
+Earth Engine and their climatological daily maps of soil moisture at
+four layers, soil temperature at the top 10 cm layer, and snow depth for
+each day of year are calculated using Google Cloud Computing. Climate
+Engine was used to access and process the underlying gridded datasets in
+Google Earth Engine and to generate daily climatological maps for the
+study variables over the selected reference period. Its cloud-based
+framework enabled consistent day-of-year aggregation, spatial
+subsetting, visualization, and export without requiring local storage or
+processing of the complete data archive. The soil texture variable is
+extracted, and missing values are handled, terrain-aligned
+latitude/longitude grids define affine transforms, and the dominant soil
+texture map is generated and optionally stacked into 16-band soil
+texture fraction GeoTIFFs. Second, dominant soil texture map is cropped
+and reprojected to the WLDAS soil moisture extent using the WLDAS
+GeoTIFFs as reference. The nearest-neighbor resampling preserves
+categorical texture codes, producing western United States soil map with
+dominant texture classes. Third, for each day of year, the four WLDAS
+soil moisture layers are ingested, and depth-weighted average soil
+moisture is computed across all layers. The soil texture raster is
 aligned to the WLDAS grid once, then reused across days as a reference
 array of texture class codes. For each pixel, the application identifies
 the texture class (1–16) and applies the corresponding RCI equation
@@ -576,8 +575,8 @@ coordinate reference system. The depth-weighted moisture function
 assumes volumetric soil moisture values between 0 and 1, and valid pixel
 masks exclude values outside this range when computing statistics. The
 soil texture raster is assumed to contain integer codes 1–16
-representing STATSGO/FAO-derived texture classes used in LIS Noah-MP
-runs and was accessed from the website
+representing texture classes used in LIS Noah-MP runs and was accessed
+from the website
 https://portal.nccs.nasa.gov/datashare/WLDAS_css/wldas_domain/. Asset
 paths are parameterized in the configuration section of the
 Application’s main JavaScript so that one can point the application to
@@ -611,12 +610,11 @@ location.</p></li>
 (impassable terrain) can be customized by the user. For instance, it can
 be as follows: GO if soil is frozen (≤ 0 ℃), OR if the selected RCI
 percentile exceeds the threshold AND snow depth is below 0.20 m. Upon
-selecting a point of interest, a five-panel figure shows daily soil
+selecting a point of interest, a multi-panel figure shows daily soil
 profile average RCI, soil moisture, soil temperature, snow depth, and
-Go/NoGo status as continuous time series, with shaded areas highlighting
-seasonal wetness and associated reductions in cone index (Figure 2).
-These plots provide intuitive insight into how soil strength varies
-across the hydrological year for the western United States.</p>
+Go/NoGo status as continuous time series (Figure 2). These plots provide
+intuitive insight into how soil strength varies across the hydrological
+year.</p>
 <figure>
 <img src="fig2.jpg" style="height:100.0%"
 alt="Fig. 2 Seasonal variability of climatological daily variables obtained from 42 years of daily WLDAS data for the selected point of interest." />
