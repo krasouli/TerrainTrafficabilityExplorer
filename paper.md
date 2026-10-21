@@ -32,7 +32,7 @@ csl: apa.csl
 
 This article outlines the need, scientific context, application design, key functions, and research impact of an analytical application called `Terrain Trafficability Explorer` that provides daily Go/No-Go terrain trafficability maps and time series from soil moisture and temperature and snow depth. Terrain Trafficability Explorer is an interactive Google Earth Engine application for assessing seasonal ground trafficability across the western United States. It combines a soil-texture-based Rating Cone Index (RCI), computed from Western Land Data Assimilation System (WLDAS) climatological soil moisture and per-texture-class bulk density, with snow depth, snow sinkage, and soil temperature to classify daily Go/No-Go mobility conditions for any day of the year. The application integrates NASA’s WLDAS soil moisture climatology, obtained from Land Information System (LIS), and soil texture maps to compute RCI. The application is designed for high-resolution (1 km) hydrological and trafficability analysis, using depth-weighted multi-layer soil moisture fields and texture-specific empirical RCI equations.
 
-# Statement of need
+# Statement of Need
 
 Snow–soil interactions significantly influence soil freeze–thaw dynamics [@Iwata2010; @Jafarov2014], moisture availability [@Haleakala2023], and vehicle mobility in snow-dominated regions [@AlbanoUnderReview]. Snowpacks act as thermal insulators, decoupling soil temperature from air temperature and reducing soil freezing during winter. This insulation effect [@Ge2010] is particularly pronounced under deeper snowpacks, which limit the penetration of cold air into the soil and conduction of heat from soil into the snowpack. However, shallow or intermittent snow cover can lead to frequent freeze–thaw cycles [@Rasouli2026], causing soil frost heave and destabilization, which degrade the structural integrity of soils and reduce their load-bearing capacity. The spatial variability of snow accumulation and melt further complicates soil conditions. Snowmelt infiltrates the soil unevenly due to factors such as topography, vegetation, soil freeze, and snow redistribution by wind [@Flint2021]. This results in heterogeneous soil moisture patterns, with wetter conditions persisting in areas of high snow accumulation or delayed melt [@Rasouli2026]. These wetter zones may experience reduced soil strength, increasing the risk of vehicle bogging or reduced traction. Conversely, drier areas with lower snow accumulation may exhibit compacted or frozen soils that can better support vehicle loads.
 
@@ -133,7 +133,7 @@ Go/No-Go Rule. The rules for Go (passable terrain) and No-Go (impassable terrain
 
 Spatial visualizations include static maps from individual RCI GeoTIFFs for selected DOYs, revealing spatial gradients in soil strength linked to underlying soil texture patterns and moisture anomalies. These maps can be layered with landcover, elevation, and transportation networks in GIS software to explore terrain trafficability, identify potential bottlenecks for ground operations, and evaluate mitigation strategies.
 
-# Research impact statement
+# Research Impact Statement
 
 The application advances the integration of land data assimilation outputs with operational metrics of soil mechanics by combining WLDAS multi-layer soil moisture fields, soil texture maps, and empirically derived RCI equations into a unified, reproducible workflow. It demonstrates how high-resolution soil moisture climatology can be transformed into physically interpretable indicators of soil strength, suitable for land management, military mobility planning, and climate adaptation studies.
 
@@ -151,12 +151,12 @@ Link : https://crushftp.dri.edu/?u=Me784PuX&p=ZyGRJ62U
 
 Permanent link to access source codes: https://github.com/krasouli/TerrainTrafficabilityExplorer
 
-# AI usage disclosure
+# AI Usage Disclosure
 
 The authors used Claude and Grammarly to assist with adding multiple display layers to the application and checking grammar. All content has been reviewed and revised by the authors. The authors take full responsibility for the accuracy and originality of the work.
 
 # Acknowledgements
 
-This material is primarily supported by the Broad Agency Announcement Program and Cold Regions Research and Engineering Laboratory (ERDCCRREL) under Contract No. W913E523C0002 and The Regents of the University of California. Any opinions, findings, and conclusions or recommendations expressed in this publication are those of the author(s) and do not necessarily reflect the views of the ERDCCRREL or of The Regents of the University of California.
+This material is primarily supported by the Broad Agency Announcement Program and Cold Regions Research and Engineering Laboratory (ERDCCRREL) under Contract No. W913E523C0002 and The Regents of the University of California. Any opinions, findings, and conclusions or recommendations expressed in this publication are those of the authors and do not necessarily reflect the views of the ERDCCRREL or of The Regents of the University of California.
 
 # References
