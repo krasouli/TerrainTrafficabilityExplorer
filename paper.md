@@ -65,22 +65,22 @@ Table: Table 1. Key soil classes used in the WLDAS dataset and associated RCI eq
 
 | Soil Class | Soil Texture (USDA) | Soil Texture (USCS) | RCI Equation [@Sullivan1997] | Bulk Density ($g/cm^3$) |
 |:----------:|:---------------|:--------------------|:-----------------:|:------------:|
-| 1 | Sand | SP---few different particle sizes, little or no fines | $RCI = \exp[3.987 + 0.815\ln(\theta_g)]$ | 1.75 |
-| 2 | Loamy Sand | SM---Silty gravels, gravel--sand--silt mixtures | $RCI = \exp[12.542 - 2.955\ln(\theta_g)]$ | 1.75 |
-| 3 | Sandy Loam | SM---Silty gravels, gravel--sand--silt mixtures | $RCI = \exp[12.542 - 2.955\ln(\theta_g)]$ | 1.70 |
-| 4 | Silt Loam | ML---Inorganic silts, slight to no plasticity | $RCI = \exp[11.936 - 2.407\ln(\theta_g)]$ | 1.45 |
-| 5 | Silt | ML---Inorganic silts, slight to no plasticity | $RCI = \exp[11.936 - 2.407\ln(\theta_g)]$ | 1.42 |
-| 6 | Loam | CL---Inorganic clays, low to moderate plasticity | $RCI = \exp[15.506 - 3.530\ln(\theta_g)]$ | 1.55 |
-| 7 | Sandy Clay Loam | SC---Clayey gravels, gravel--sand--clay mixtures | $RCI = \exp[12.542 - 2.955\ln(\theta_g)]$ | 1.65 |
-| 8 | Silty Clay Loam | CL---Inorganic clays, low to moderate plasticity | $RCI = \exp[15.506 - 3.530\ln(\theta_g)]$ | 1.42 |
-| 9 | Clay Loam | CL---Inorganic clays, low to moderate plasticity | $RCI = \exp[15.506 - 3.530\ln(\theta_g)]$ | 1.50 |
-| 10 | Sandy Clay | SC---Clayey gravels, gravel--sand--clay mixtures | $RCI = \exp[12.542 - 2.955\ln(\theta_g)]$ | 1.60 |
-| 11 | Silty Clay | CH---Inorganic clays, high plasticity, fat clays | $RCI = \exp[13.686 - 2.705\ln(\theta_g)]$ | 1.40 |
-| 12 | Clay | CH---Inorganic clays, high plasticity, fat clays | $RCI = \exp[13.686 - 2.705\ln(\theta_g)]$ | 1.40 |
-| 13 | Organic Material | OH---Organic clays, high plasticity, fat clays | $RCI = \exp[12.189 - 1.942\ln(\theta_g)]$ | 1.20 |
-| 14 | Water |  | $RCI = 0$ | 1.00 |
-| 15 | Bedrock |  | $RCI = \exp[3.987 + 0.815\ln(\theta_g)]$ | 1.80 |
-| 16 | Other (land-ice) |  | $RCI = \exp[3.987 + 0.815\ln(\theta_g)]$ | 1.20 |
+| 1 | Sand | SP---few different particle sizes, little or no fines | $\exp[3.987 + 0.815\ln(\theta_g)]$ | 1.75 |
+| 2 | Loamy Sand | SM---Silty gravels, gravel--sand--silt mixtures | $\exp[12.542 - 2.955\ln(\theta_g)]$ | 1.75 |
+| 3 | Sandy Loam | SM---Silty gravels, gravel--sand--silt mixtures | $\exp[12.542 - 2.955\ln(\theta_g)]$ | 1.70 |
+| 4 | Silt Loam | ML---Inorganic silts, slight to no plasticity | $\exp[11.936 - 2.407\ln(\theta_g)]$ | 1.45 |
+| 5 | Silt | ML---Inorganic silts, slight to no plasticity | $\exp[11.936 - 2.407\ln(\theta_g)]$ | 1.42 |
+| 6 | Loam | CL---Inorganic clays, low to moderate plasticity | $\exp[15.506 - 3.530\ln(\theta_g)]$ | 1.55 |
+| 7 | Sandy Clay Loam | SC---Clayey gravels, gravel--sand--clay mixtures | $\exp[12.542 - 2.955\ln(\theta_g)]$ | 1.65 |
+| 8 | Silty Clay Loam | CL---Inorganic clays, low to moderate plasticity | $\exp[15.506 - 3.530\ln(\theta_g)]$ | 1.42 |
+| 9 | Clay Loam | CL---Inorganic clays, low to moderate plasticity | $\exp[15.506 - 3.530\ln(\theta_g)]$ | 1.50 |
+| 10 | Sandy Clay | SC---Clayey gravels, gravel--sand--clay mixtures | $\exp[12.542 - 2.955\ln(\theta_g)]$ | 1.60 |
+| 11 | Silty Clay | CH---Inorganic clays, high plasticity, fat clays | $\exp[13.686 - 2.705\ln(\theta_g)]$ | 1.40 |
+| 12 | Clay | CH---Inorganic clays, high plasticity, fat clays | $\exp[13.686 - 2.705\ln(\theta_g)]$ | 1.40 |
+| 13 | Organic Material | OH---Organic clays, high plasticity, fat clays | $\exp[12.189 - 1.942\ln(\theta_g)]$ | 1.20 |
+| 14 | Water |  | $0$ | 1.00 |
+| 15 | Bedrock |  | $\exp[3.987 + 0.815\ln(\theta_g)]$ | 1.80 |
+| 16 | Other (land-ice) |  | $\exp[3.987 + 0.815\ln(\theta_g)]$ | 1.20 |
 
 We converted volumetric soil water content to gravimetric soil moisture content as follows:
 
@@ -129,7 +129,7 @@ How to Use This Tool. The following steps need to be taken to visualize and anal
 
 Go/No-Go Rule. The rules for Go (passable terrain) and No-Go (impassable terrain) can be customized by the user. For instance, it can be as follows: GO if soil is frozen (≤ 0 ℃), OR if the selected RCI percentile exceeds the threshold AND snow depth is below 0.20 m. Upon selecting a point of interest, a multi-panel figure shows daily soil profile average RCI, soil moisture, soil temperature, snow depth, and Go/NoGo status as continuous time series (Figure 2). These plots provide intuitive insight into how soil strength varies across the hydrological year.
 
-![Fig. 2 Seasonal variability of climatological daily variables obtained from 42 years of daily WLDAS data for the selected point of interest.\label{fig2}](fig2.jpg){height=100%}
+![Fig. 2 Seasonal variability of climatological daily variables obtained from 42 years of daily WLDAS data for the selected point of interest.\label{fig2}](Fig2.jpg){height=100%}
 
 Spatial visualizations include static maps from individual RCI GeoTIFFs for selected DOYs, revealing spatial gradients in soil strength linked to underlying soil texture patterns and moisture anomalies. These maps can be layered with landcover, elevation, and transportation networks in GIS software to explore terrain trafficability, identify potential bottlenecks for ground operations, and evaluate mitigation strategies.
 
