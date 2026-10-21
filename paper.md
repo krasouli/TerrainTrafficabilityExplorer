@@ -29,7 +29,6 @@ affiliations:
     name: Division of Atmospheric Sciences, Desert Research Institute, 2215 Raggio Pkwy, Reno, NV 89512 USA
   - index: 2
     name: Division of Hydrologic Sciences, Desert Research Institute, 2215 Raggio Pkwy, Reno, NV 89512 USA
-    ror: "04bs1pb34"
 date: '15 October 2026'
 bibliography: paper.bib
 csl: apa.csl
