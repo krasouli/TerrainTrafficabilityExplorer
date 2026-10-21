@@ -9,8 +9,8 @@ tags:
 authors:
   - name: Kabir Rasouli
     orcid: 0000-0002-8176-2132
-    affiliation: Division of Atmospheric Sciences, Desert Research Institute, 2215 Raggio Pkwy, Reno, NV 89512 USA; Email: kabir.rasouli@dri.edu
-    corresponding: true 
+    affiliation: Division of Atmospheric Sciences, Desert Research Institute, 2215 Raggio Pkwy, Reno, NV 89512 USA, Email: kabir.rasouli@dri.edu
+    corresponding: true
   - name: Daniel McEvoy
     orcid: 0000-0003-3800-718X
     affiliation:  Division of Atmospheric Sciences, Desert Research Institute, 2215 Raggio Pkwy, Reno, NV 89512 USA
